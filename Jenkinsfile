@@ -43,11 +43,15 @@ pipeline{
         script{
           sh"""
           docker pull "${DOCKER_IMAGE}"
+          docker network create "${params.PRJ_NAME}" || true
           docker stop "${params.PRJ_NAME}" || true
           docker rm "${params.PJR_NAME}" || true
-          docker run -d -it --name redis redis:alpine || true
+          docker run -d -it --name redis --network "${params.PRJ_NAME}" redis:alpine || true
           cd ${params.PRJ_NAME}; cp env.example .env || true
-          docker run -d -it --name "${params.PRJ_NAME}" --env-file ./.env -p ${params.EXTERNAL_PORT}:${params.INTERNAL_PORT} "${DOCKER_IMAGE}"
+          docker run -d -it --name "${params.PRJ_NAME}" \
+            --env-file ./.env -p ${params.EXTERNAL_PORT}:${params.INTERNAL_PORT} \
+            --network "${params.PRJ_NAME}" \
+            "${DOCKER_IMAGE}"
           """
         }
       }

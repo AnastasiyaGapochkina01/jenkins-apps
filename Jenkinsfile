@@ -45,7 +45,7 @@ pipeline{
           docker pull "${DOCKER_IMAGE}"
           docker stop "${params.PRJ_NAME}" || true
           docker rm "${params.PJR_NAME}" || true
-          docker run -d -it --name redis redis:alpine
+          docker run -d -it --name redis redis:alpine || true
           cd ${params.PRJ_NAME}; cp env.example .env || true
           docker run -d -it --name "${params.PRJ_NAME}" --env-file ./.env -p ${params.EXTERNAL_PORT}:${params.INTERNAL_PORT} "${DOCKER_IMAGE}"
           """

@@ -32,7 +32,7 @@ pipeline{
       steps{
         script{
           sh"""
-            docker login -u edy2010 -p ${env.DOCKER_TOKEN}
+            docker login -u anestesia01 -p ${env.DOCKER_TOKEN}
             docker push "${DOCKER_IMAGE}"
           """
         }

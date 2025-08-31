@@ -8,8 +8,8 @@ pipeline{
   }
 
   environment{
-    REPO = 'edy2010/node-app'
-    DOCKER_TOKEN = credentials('dok-tok')
+    REPO = 'anestesia01/demo'
+    DOCKER_TOKEN = credentials('docker-token')
     DOCKER_IMAGE = "${REPO}:${params.PRJ_NAME}-${BUILD_NUMBER}"
   }
 
@@ -23,7 +23,7 @@ pipeline{
       steps{
         script{
           sh"""
-            docker build -t "${DOCKER_IMAGE}" .
+            docker build -t "${DOCKER_IMAGE}" "./${params.PRJ_NAME}"
           """
         }
       }

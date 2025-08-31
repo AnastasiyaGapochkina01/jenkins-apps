@@ -9,7 +9,7 @@ pipeline{
 
   environment{
     REPO = 'anestesia01/demo'
-    DOCKER_TOKEN = credentials('docker-token')
+    DOCKER_TOKEN = credentials('docker_token')
     DOCKER_IMAGE = "${REPO}:${params.PRJ_NAME}-${BUILD_NUMBER}"
   }
 
